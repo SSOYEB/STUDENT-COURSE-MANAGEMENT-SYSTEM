@@ -5,40 +5,35 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Edit Student Details</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
-    <!-- Custom Styles for Modern Look -->
     <style>
         body {
-            background-color: #f0f2f5; /* Soft light background */
+            background-color: #f0f2f5;
         }
         .edit-card {
             border: none;
-            border-radius: 1rem; /* Highly rounded corners */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Soft, professional shadow */
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             overflow: hidden;
         }
         .card-header-accent {
-            background-color: #ffc107; /* A warm, inviting yellow/orange accent (Warning color) */
-            color: #343a40; /* Dark text for contrast */
+            background-color: #ffc107;
+            color: #343a40;
             padding: 1.5rem 0;
             border-bottom: none;
             font-weight: 500;
         }
         .form-floating .form-control:focus {
-            box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25); /* Accent color focus ring */
+            box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.25);
             border-color: #ffc107;
         }
     </style>
 </head>
 <body>
     <div class="container py-5 d-flex justify-content-center">
-        <!-- Applying custom class for advanced styling -->
         <div class="card edit-card" style="width: 100%; max-width: 480px;">
-            <!-- Custom header with accent color -->
             <div class="card-header card-header-accent text-center">
                 <h3 class="mb-0 fw-light">
                     <i class="bi bi-pencil-square me-2 fs-4"></i> Edit Student Details
@@ -46,38 +41,30 @@
             </div>
             
             <div class="card-body p-5">
-                <!-- IMPORTANT: Keep the original Thymeleaf action for update -->
                 <form action="#" th:action="@{/students/update/{id}(id=${student.id})}" th:object="${student}" method="post">
                     
-                    <!-- Hidden field for ID is usually required in updates -->
                     <input type="hidden" th:field="*{id}" />
 
-                    <!-- 1. Student Name (Floating Label) -->
                     <div class="form-floating mb-4">
                         <input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Name" required>
                         <label for="name">Student Name</label>
                     </div>
                     
-                    <!-- 2. Student Group (Floating Label) -->
                     <div class="form-floating mb-4">
                         <input type="text" th:field="*{studentGroup}" class="form-control" id="studentGroup" placeholder="Group" required>
                         <label for="studentGroup">Student Group</label>
                     </div>
                     
-                    <!-- 3. Student Course (Floating Label) -->
                     <div class="form-floating mb-4">
                         <input type="text" th:field="*{course}" class="form-control" id="course" placeholder="Course" required>
                         <label for="course">Student Course</label>
                     </div>
                     
-                    <!-- 4. Student Age (Floating Label + input type="number") -->
-                    <!-- Changed input type to 'number' and added validation attributes -->
                     <div class="form-floating mb-5">
                         <input type="number" th:field="*{age}" class="form-control" id="age" placeholder="Age" min="16" max="99" required>
                         <label for="age">Student Age</label>
                     </div>
                     
-                    <!-- Submit Button - Note the updated value text -->
                     <div class="d-grid">
                         <input type="submit" class="btn btn-warning btn-lg shadow-sm" value="Update Student Details">
                     </div>
