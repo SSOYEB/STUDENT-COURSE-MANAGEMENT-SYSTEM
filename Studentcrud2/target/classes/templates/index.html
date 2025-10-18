@@ -1,0 +1,107 @@
+<!Doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Student Management Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <style>
+        body {
+            background-color: #f8f9fa; /* Light gray background for contrast */
+        }
+        .main-card {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Soft, modern shadow */
+        }
+        .table thead th {
+            border-bottom: 3px solid #007bff; /* Primary color underline for header */
+            font-weight: 600;
+        }
+        .table-action-buttons a {
+            transition: all 0.2s ease-in-out;
+        }
+        .table-action-buttons a:hover {
+            transform: scale(1.05); /* Slight lift effect on hover */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="bi bi-mortarboard-fill me-2"></i> Student Manager
+            </a>
+        </div>
+    </nav>
+    
+    <div class="container py-5">
+        <div class="card main-card border-0">
+            <div class="card-body p-5">
+                
+                <div class="d-flex justify-content-between align-items-center mb-5 pb-3 border-bottom">
+                    <h2 class="h3 mb-0 text-secondary">
+                        <i class="bi bi-list-columns-reverse me-2"></i> Current Students
+                    </h2>
+                    <a href="/students/signup" class="btn btn-primary btn-lg shadow-sm">
+                        <i class="bi bi-person-plus-fill me-1"></i> Enroll New Student
+                    </a>
+                </div>
+
+                <div th:switch="${students}">
+                    
+                    <div th:case="null" class="text-center p-5 bg-light rounded-3 border">
+                        <i class="bi bi-person-bounding-box" style="font-size: 4rem; color: #adb5bd;"></i>
+                        <h2 class="text-muted mt-3">Roster is Empty</h2>
+                        <p class="lead mt-3">It looks like you haven't added any students yet. Get started now!</p>
+                        <a href="/students/signup" class="btn btn-outline-success btn-lg mt-3">
+                            <i class="bi bi-person-add"></i> Add First Student
+                        </a>
+                    </div>
+
+                    <div th:case="*">
+                        <div class="alert alert-info py-2 mb-4 d-inline-block">
+                             <i class="bi bi-bar-chart-fill me-2"></i> Total Students Registered: <span th:text="${#lists.size(students)}" class="fw-bold">0</span>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead class="text-uppercase">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Group</th>
+                                        <th>Course</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="student : ${students}">
+                                        <td class="align-middle fw-medium text-dark" th:text="${student.name}"></td>
+                                        <td class="align-middle" th:text="${student.studentGroup}"></td>
+                                        <td class="align-middle" th:text="${student.course}"></td>
+                                        <td class="text-center align-middle table-action-buttons">
+                                            <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-sm btn-outline-info me-2" title="Edit Student">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </a>
+                                            <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-sm btn-outline-danger" title="Delete Student" 
+                                               onclick="return confirm('Are you sure you want to delete this student? This action cannot be undone.')">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>
