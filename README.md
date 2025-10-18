@@ -1,5 +1,5 @@
 Tools Used:-
-a)Maven
+a)Apache Maven
 b)Xampp
 c)Java
 d)MySQL
